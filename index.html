@@ -177,9 +177,90 @@
             color: #0a8c0a;
         }
         
+        /* 等级选择器样式 - 现在作为主要输入 */
+        .rank-selector-main {
+            margin-bottom: 25px;
+            padding: 25px;
+            background: linear-gradient(135deg, #fff8e1 0%, #ffe0b2 100%);
+            border-radius: 15px;
+            border: 3px solid #f57c00;
+            box-shadow: 0 5px 15px rgba(245, 124, 0, 0.2);
+        }
+        
+        .rank-selector-label {
+            font-weight: 700;
+            color: #e65100;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 1.2rem;
+        }
+        
+        .rank-selector-label i {
+            font-size: 1.4rem;
+        }
+        
+        .custom-select-wrapper {
+            position: relative;
+        }
+        
+        .rank-select {
+            width: 100%;
+            padding: 18px 50px 18px 20px;
+            border: 3px solid #f57c00;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1a2a6c;
+            background: white;
+            cursor: pointer;
+            appearance: none;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            transition: all 0.3s;
+        }
+        
+        .rank-select:hover {
+            border-color: #e65100;
+            box-shadow: 0 5px 15px rgba(245, 124, 0, 0.3);
+        }
+        
+        .rank-select:focus {
+            outline: none;
+            border-color: #0a8c0a;
+            box-shadow: 0 0 0 5px rgba(10, 140, 10, 0.2);
+        }
+        
+        .select-arrow {
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #f57c00;
+            font-size: 1.5rem;
+            pointer-events: none;
+        }
+        
+        .rank-hint {
+            margin-top: 12px;
+            font-size: 0.95rem;
+            color: #666;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(255,255,255,0.7);
+            padding: 10px;
+            border-radius: 8px;
+        }
+        
+        .rank-hint i {
+            color: #f57c00;
+        }
+        
         /* 输入区域样式优化 */
         .input-group {
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             background: linear-gradient(135deg, #f0f8f0 0%, #e8f5e9 100%);
             padding: 25px;
             border-radius: 12px;
@@ -1126,6 +1207,33 @@
             font-weight: 600;
             margin-left: 10px;
         }
+
+        /* 选中的等级高亮 */
+        .selected-rank-info {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border: 2px solid #0a8c0a;
+            border-radius: 10px;
+            padding: 15px;
+            margin-top: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .selected-rank-info .rank-badge {
+            background: #0a8c0a;
+            color: white;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.1rem;
+        }
+
+        .selected-rank-info .rate-badge {
+            color: #0a8c0a;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
     </style>
 </head>
 <body>
@@ -1153,7 +1261,10 @@
             <p class="subtitle">
                 Ranch Sector Capital Management Ltd (RS) - 统一管理平台<br>
                 <strong>草原财富，稳健增长 🐄🌿</strong><br>
-                计算您的储蓄收益与邀请晋升奖励 | R系列统一奖励上限1,499
+                计算您的储蓄收益与邀请晋升奖励 | R系列统一奖励上限1,499<br>
+                <span style="color: #f57c00; font-weight: bold; margin-top: 10px; display: block;">
+                    <i class="fas fa-hand-pointer"></i> 纯手动选择等级模式 - 金额不限，利率按所选等级计算
+                </span>
             </p>
         </header>
         
@@ -1171,19 +1282,46 @@
                     </button>
                 </div>
                 
+                <!-- 等级选择器 - 主要输入 -->
+                <div class="rank-selector-main">
+                    <div class="rank-selector-label">
+                        <i class="fas fa-crown"></i>
+                        选择您的等级（决定利率）
+                    </div>
+                    <div class="custom-select-wrapper">
+                        <select class="rank-select" id="your-rank-select" onchange="rankSelectChanged('your')">
+                            <option value="0">R ⭐ (利率 2.0%)</option>
+                            <option value="1" selected>R ⭐⭐ (利率 2.3%)</option>
+                            <option value="2">R ⭐⭐⭐ (利率 2.5%)</option>
+                            <option value="3">S ⭐ (利率 2.5%)</option>
+                            <option value="4">S ⭐⭐ (利率 3.0%)</option>
+                            <option value="5">S ⭐⭐⭐ (利率 4.0%)</option>
+                            <option value="6">RS ⭐ (利率 5.0%)</option>
+                            <option value="7">RS ⭐⭐ (利率 6.0%)</option>
+                            <option value="8">RS ⭐⭐⭐ (利率 8.0%)</option>
+                        </select>
+                        <i class="fas fa-chevron-down select-arrow"></i>
+                    </div>
+                    <div class="rank-hint">
+                        <i class="fas fa-info-circle"></i>
+                        选择等级后，系统将按此等级的利率计算收益，不受金额限制
+                    </div>
+                </div>
+                
                 <div class="input-group">
                     <label class="input-label">
                         <i class="fas fa-wallet"></i>
                         您的储蓄钱包余额 (RM)
+                        <span class="info-tag">任意金额</span>
                     </label>
                     <div class="input-wrapper">
                         <div class="currency-symbol">RM</div>
-                        <input type="number" id="your-balance" min="50" max="10000000" step="1" value="1000" placeholder="请输入金额，最低50">
+                        <input type="number" id="your-balance" min="0" max="10000000" step="1" value="1000" placeholder="请输入任意金额">
                     </div>
                     
                     <div class="input-hint">
-                        <i class="fas fa-info-circle"></i>
-                        最低金额 RM50，请直接输入金额
+                        <i class="fas fa-lightbulb"></i>
+                        输入任意金额，收益将按上方选择的等级利率计算
                     </div>
                 </div>
                 
@@ -1192,7 +1330,7 @@
                         您的等级：R ⭐⭐
                     </div>
                     <div class="level-range" id="your-level-range">
-                        余额范围: RM300 - RM599
+                        标准余额范围: RM300 - RM599
                     </div>
                     <div class="daily-rate" id="your-daily-rate">
                         每日收益率: 2.3%
@@ -1234,22 +1372,46 @@
                     </button>
                 </div>
                 
+                <!-- 等级选择器 - 主要输入 -->
+                <div class="rank-selector-main">
+                    <div class="rank-selector-label">
+                        <i class="fas fa-crown"></i>
+                        选择新员工等级（决定利率）
+                    </div>
+                    <div class="custom-select-wrapper">
+                        <select class="rank-select" id="promotee-rank-select" onchange="rankSelectChanged('promotee')">
+                            <option value="0">R ⭐ (利率 2.0%)</option>
+                            <option value="1">R ⭐⭐ (利率 2.3%)</option>
+                            <option value="2">R ⭐⭐⭐ (利率 2.5%)</option>
+                            <option value="3" selected>S ⭐ (利率 2.5%)</option>
+                            <option value="4">S ⭐⭐ (利率 3.0%)</option>
+                            <option value="5">S ⭐⭐⭐ (利率 4.0%)</option>
+                            <option value="6">RS ⭐ (利率 5.0%)</option>
+                            <option value="7">RS ⭐⭐ (利率 6.0%)</option>
+                            <option value="8">RS ⭐⭐⭐ (利率 8.0%)</option>
+                        </select>
+                        <i class="fas fa-chevron-down select-arrow"></i>
+                    </div>
+                    <div class="rank-hint">
+                        <i class="fas fa-info-circle"></i>
+                        选择等级后，系统将按此等级的利率计算收益，不受金额限制
+                    </div>
+                </div>
+                
                 <div class="input-group">
                     <label class="input-label">
                         <i class="fas fa-hand-holding-usd"></i>
                         新员工储蓄钱包余额 (RM)
-                        <span class="sync-indicator" id="sync-status">
-                            <i class="fas fa-link"></i> 已关联
-                        </span>
+                        <span class="info-tag">任意金额</span>
                     </label>
                     <div class="input-wrapper">
                         <div class="currency-symbol" style="background: linear-gradient(135deg, #1a2a6c 0%, #2a3a9c 100%);">RM</div>
-                        <input type="number" id="promotee-balance" min="50" max="10000000" step="1" value="2430" placeholder="请输入晋升者首次转入金额">
+                        <input type="number" id="promotee-balance" min="0" max="10000000" step="1" value="2430" placeholder="请输入任意金额">
                     </div>
                     
                     <div class="input-hint">
                         <i class="fas fa-lightbulb"></i>
-                        晋升者即您邀请的合作伙伴，其等级决定邀请奖励计算方式
+                        晋升者即您邀请的合作伙伴，收益按上方选择的等级利率计算
                     </div>
                 </div>
                 
@@ -1258,7 +1420,7 @@
                         晋升者等级：S ⭐
                     </div>
                     <div class="level-range" id="promotee-level-range">
-                        余额范围: RM1,500 - RM2,499
+                        标准余额范围: RM1,500 - RM2,499
                     </div>
                     <div class="daily-rate" id="promotee-daily-rate">
                         每日收益率: 2.5%
@@ -1286,7 +1448,7 @@
             </div>
         </div>
         
-        <!-- 话术生成器与预览（移到这里，原邀请奖励计算结果位置） -->
+        <!-- 话术生成器与预览 -->
         <div class="congrats-section">
             <h2 class="congrats-title">
                 <i class="fas fa-comments"></i>
@@ -1417,7 +1579,7 @@ To enhance your income potential, we have opened up broader development paths fo
             </div>
         </div>
         
-        <!-- 邀请奖励计算结果（移到底部） -->
+        <!-- 邀请奖励计算结果 -->
         <div class="card" style="margin-bottom: 30px; border-top: 6px solid #0a8c0a;">
             <h2 class="section-title">
                 <i class="fas fa-gift"></i>
@@ -1486,7 +1648,7 @@ To enhance your income potential, we have opened up broader development paths fo
                 </div>
             </div>
             
-            <!-- 奖励计算详情（简化为紧凑版本） -->
+            <!-- 奖励计算详情 -->
             <div class="reward-details" style="margin-top: 30px;">
                 <h3 style="color: #1a2a6c; margin-bottom: 20px; font-size: 1.3rem;">
                     <i class="fas fa-calculator"></i> 奖励计算详情
@@ -1514,13 +1676,13 @@ To enhance your income potential, we have opened up broader development paths fo
                             <i class="fas fa-hand-holding-usd"></i> 持续返佣资格
                         </div>
                         <div class="reward-value" id="rebate-detail" style="font-size: 0.95rem;">
-                            返佣条件：您的余额 ≥ 晋升者余额时，可享受晋升者每日2.5%的订单佣金
+                            返佣条件：您的余额 ≥ 晋升者余额时，可享受晋升者每日3%的订单佣金
                         </div>
                         <div class="reward-warning" id="rebate-warning" style="display: flex; margin-top: 10px; padding: 12px;">
                             <i class="fas fa-exclamation-triangle"></i>
                             <div style="font-size: 0.9rem;">
                                 <strong>注意：</strong>您的储蓄钱包余额 (RM1,000) 低于晋升者余额 (RM2,430)，
-                                <strong>您暂时无法享受</strong>每日2.5%的订单佣金返佣。
+                                <strong>您暂时无法享受</strong>每日3%的订单佣金返佣。
                             </div>
                         </div>
                         <div class="reward-tip" id="upgrade-tip" style="margin-top: 10px; padding: 12px; font-size: 0.9rem;">
@@ -1551,9 +1713,9 @@ To enhance your income potential, we have opened up broader development paths fo
                 <thead>
                     <tr>
                         <th>等级</th>
-                        <th>余额范围 (RM)</th>
+                        <th>标准余额范围 (RM)</th>
                         <th>日收益率</th>
-                        <th>每日收益 (RM)</th>
+                        <th>每日收益示例 (RM)</th>
                         <th>邀请奖励上限</th>
                     </tr>
                 </thead>
@@ -1562,7 +1724,7 @@ To enhance your income potential, we have opened up broader development paths fo
                         <td class="tier-name">R <span class="star-emoji">⭐</span></td>
                         <td>50 - 299</td>
                         <td>2.0%</td>
-                        <td>1.0 - 5.98</td>
+                        <td>金额 × 2.0%</td>
                         <td rowspan="3" style="background: #fff3e0; font-weight: bold; color: #e65100; font-size: 1.1rem; text-align: center; vertical-align: middle; border: 3px solid #f57c00;">
                             <div style="padding: 10px;">
                                 <i class="fas fa-star"></i> R系列统一上限 <i class="fas fa-star"></i><br>
@@ -1575,54 +1737,54 @@ To enhance your income potential, we have opened up broader development paths fo
                         <td class="tier-name">R <span class="star-emoji">⭐⭐</span></td>
                         <td>300 - 599</td>
                         <td>2.3%</td>
-                        <td>6.9 - 13.78</td>
+                        <td>金额 × 2.3%</td>
                     </tr>
                     <tr class="r-group">
                         <td class="tier-name">R <span class="star-emoji">⭐⭐⭐</span></td>
                         <td>600 - 1,499</td>
                         <td>2.5%</td>
-                        <td>15.0 - 37.48</td>
+                        <td>金额 × 2.5%</td>
                     </tr>
                     <tr class="s-group" style="background: #e8f5e9; font-weight: bold;">
                         <td class="tier-name">S <span class="star-emoji">⭐</span></td>
                         <td>1,500 - 2,499</td>
                         <td>2.5%</td>
-                        <td>37.5 - 62.48</td>
+                        <td>金额 × 2.5%</td>
                         <td>2,499 × 10% = 249.90</td>
                     </tr>
                     <tr class="s-group">
                         <td class="tier-name">S <span class="star-emoji">⭐⭐</span></td>
                         <td>2,500 - 9,999</td>
                         <td>3.0%</td>
-                        <td>75.0 - 299.97</td>
+                        <td>金额 × 3.0%</td>
                         <td>9,999 × 10% = 999.90</td>
                     </tr>
                     <tr class="s-group">
                         <td class="tier-name">S <span class="star-emoji">⭐⭐⭐</span></td>
                         <td>10,000 - 299,999</td>
                         <td>4.0%</td>
-                        <td>400.0 - 11,999.96</td>
+                        <td>金额 × 4.0%</td>
                         <td>299,999 × 10% = 29,999.90</td>
                     </tr>
                     <tr class="rs-group" style="background: #fff3e0; font-weight: bold;">
                         <td class="tier-name">RS <span class="star-emoji">⭐</span></td>
                         <td>300,000 - 9,999,999</td>
                         <td>5.0%</td>
-                        <td>15,000 - 499,999.95</td>
+                        <td>金额 × 5.0%</td>
                         <td>9,999,999 × 10% = 999,999.90</td>
                     </tr>
                     <tr class="rs-group">
                         <td class="tier-name">RS <span class="star-emoji">⭐⭐</span></td>
                         <td>300,000 - 9,999,999</td>
                         <td>6.0%</td>
-                        <td>18,000 - 599,999.94</td>
+                        <td>金额 × 6.0%</td>
                         <td>9,999,999 × 10% = 999,999.90</td>
                     </tr>
                     <tr class="rs-group">
                         <td class="tier-name">RS <span class="star-emoji">⭐⭐⭐</span></td>
                         <td>300,000 - 9,999,999</td>
                         <td>8.0%</td>
-                        <td>24,000 - 799,999.92</td>
+                        <td>金额 × 8.0%</td>
                         <td>9,999,999 × 10% = 999,999.90</td>
                     </tr>
                 </tbody>
@@ -1633,7 +1795,8 @@ To enhance your income potential, we have opened up broader development paths fo
             <p>🐄 🌿 Ranch Sector Capital Management Ltd (RS) - 草原财富，稳健增长 🌿 🐄</p>
             <p style="margin-top: 10px; font-size: 0.9rem; opacity: 0.8;">
                 所有收益数据与奖励计算仅供参考 | 投资有风险，入市需谨慎<br>
-                R系列统一奖励上限1,499 RM | 邀请奖励基于等级上限计算
+                R系列统一奖励上限1,499 RM | 邀请奖励基于等级上限计算<br>
+                <span style="color: #fdbb2d; font-weight: bold;">纯手动选择等级模式 - 金额不限，利率按所选等级计算</span>
             </p>
         </footer>
         
@@ -1641,7 +1804,7 @@ To enhance your income potential, we have opened up broader development paths fo
     </div>
 
     <script>
-        // 等级数据定义
+        // 等级数据定义 - 包含所有等级信息
         const rankData = [
             { name: "R", star: "⭐", min: 50, max: 299, rate: 2.0 },
             { name: "R", star: "⭐⭐", min: 300, max: 599, rate: 2.3 },
@@ -1657,26 +1820,27 @@ To enhance your income potential, we have opened up broader development paths fo
         // R系列统一奖励上限
         const R_SERIES_UNIFIED_LIMIT = 1499;
         
-        // 订单返佣百分比（固定3%，不同于日收益率）
+        // 订单返佣百分比（固定3%）
         const REBATE_PERCENTAGE = 3.0;
         
         // 当前话术类型
         let currentMessageType = 'promotion';
         
+        // 当前选择的等级索引
+        let yourRankIndex = 1; // 默认 R⭐⭐
+        let promoteeRankIndex = 3; // 默认 S⭐
+        
         // 获取DOM元素
         const yourBalanceInput = document.getElementById('your-balance');
         const promoteeBalanceInput = document.getElementById('promotee-balance');
+        const yourRankSelect = document.getElementById('your-rank-select');
+        const promoteeRankSelect = document.getElementById('promotee-rank-select');
         
         // 初始化
         function init() {
-            // 输入框事件监听
-            yourBalanceInput.addEventListener('input', function() {
-                calculateAll();
-            });
-            
-            promoteeBalanceInput.addEventListener('input', function() {
-                calculateAll();
-            });
+            // 输入框事件监听 - 金额变化时重新计算
+            yourBalanceInput.addEventListener('input', calculateAll);
+            promoteeBalanceInput.addEventListener('input', calculateAll);
             
             // 话术类型切换
             setupMessageTypeSelector();
@@ -1688,7 +1852,7 @@ To enhance your income potential, we have opened up broader development paths fo
             document.getElementById('calculate-btn').addEventListener('click', calculateAll);
             document.getElementById('reset-btn').addEventListener('click', resetAll);
             
-            // 马来语按钮事件 - 修正：晋升话术使用新员工数据，邀请话术使用邀请人数据
+            // 马来语按钮事件
             document.getElementById('copy-promotion-btn').addEventListener('click', () => copySpecificMessage('promotion', 'ms'));
             document.getElementById('copy-invitation-btn').addEventListener('click', () => copySpecificMessage('invitation', 'ms'));
             
@@ -1710,18 +1874,27 @@ To enhance your income potential, we have opened up broader development paths fo
             });
         }
         
-        // 确定等级
-        function determineRank(amount) {
-            for (let i = rankData.length - 1; i >= 0; i--) {
-                const rank = rankData[i];
-                if (amount >= rank.min && amount <= rank.max) {
-                    return rank;
-                }
+        // 等级选择改变
+        function rankSelectChanged(person) {
+            const select = document.getElementById(`${person}-rank-select`);
+            const index = parseInt(select.value);
+            
+            if (person === 'your') {
+                yourRankIndex = index;
+            } else {
+                promoteeRankIndex = index;
             }
-            if (amount < 50) {
-                return { name: "未达标", star: "", min: 0, max: 49, rate: 0 };
+            
+            calculateAll();
+        }
+        
+        // 获取等级数据（根据当前选择的索引）
+        function getRank(person) {
+            if (person === 'your') {
+                return rankData[yourRankIndex];
+            } else {
+                return rankData[promoteeRankIndex];
             }
-            return rankData[rankData.length - 1];
         }
         
         // 判断等级类型
@@ -1737,8 +1910,8 @@ To enhance your income potential, we have opened up broader development paths fo
             const yourBalance = parseFloat(yourBalanceInput.value) || 0;
             const promoteeBalance = parseFloat(promoteeBalanceInput.value) || 0;
             
-            const yourRank = determineRank(yourBalance);
-            const promoteeRank = determineRank(promoteeBalance);
+            const yourRank = getRank('your');
+            const promoteeRank = getRank('promotee');
             
             updateYourDisplay(yourBalance, yourRank);
             updatePromoteeDisplay(promoteeBalance, promoteeRank);
@@ -1747,25 +1920,22 @@ To enhance your income potential, we have opened up broader development paths fo
         }
         
         function updateYourDisplay(balance, rank) {
-            const displayName = rank.name === "未达标" ? "未达标" : `${rank.name} ${rank.star}`;
+            const displayName = `${rank.name} ${rank.star}`;
             document.getElementById('your-level-display').innerHTML = `您的等级：${displayName}`;
             
-            if (rank.name === "未达标") {
-                document.getElementById('your-level-range').textContent = `余额范围: < RM50 (最低要求)`;
-                document.getElementById('your-daily-rate').textContent = `每日收益率: 0% (未达标)`;
-                document.getElementById('r-limit-notice').style.display = 'none';
+            // 显示标准范围（仅供参考，不作为限制）
+            document.getElementById('your-level-range').textContent = `标准余额范围: RM${rank.min.toLocaleString()} - RM${rank.max.toLocaleString()}`;
+            document.getElementById('your-daily-rate').textContent = `每日收益率: ${rank.rate}%`;
+            
+            // R系列显示统一上限提示
+            const rankType = getRankType(rank.name);
+            if (rankType === 'R') {
+                document.getElementById('r-limit-notice').style.display = 'block';
             } else {
-                document.getElementById('your-level-range').textContent = `余额范围: RM${rank.min.toLocaleString()} - RM${rank.max.toLocaleString()}`;
-                document.getElementById('your-daily-rate').textContent = `每日收益率: ${rank.rate}%`;
-                
-                const rankType = getRankType(rank.name);
-                if (rankType === 'R') {
-                    document.getElementById('r-limit-notice').style.display = 'block';
-                } else {
-                    document.getElementById('r-limit-notice').style.display = 'none';
-                }
+                document.getElementById('r-limit-notice').style.display = 'none';
             }
             
+            // 计算收益：余额 × 所选等级的利率（完全不受等级标准范围限制）
             const daily = balance > 0 ? (balance * rank.rate / 100).toFixed(2) : "0.00";
             const monthly = (daily * 30).toFixed(2);
             const yearly = (daily * 365).toFixed(2);
@@ -1776,11 +1946,11 @@ To enhance your income potential, we have opened up broader development paths fo
             document.getElementById('your-yearly-income').textContent = `RM${parseFloat(yearly).toLocaleString()}`;
             document.getElementById('your-two-year-income').textContent = `RM${parseFloat(twoYear).toLocaleString()}`;
             
+            // 更新右侧卡片信息
             document.getElementById('your-rank-name').textContent = displayName;
-            document.getElementById('your-rank-range-text').textContent = rank.name === "未达标" ? "< 50 RM" : `${rank.min.toLocaleString()} - ${rank.max.toLocaleString()} RM`;
+            document.getElementById('your-rank-range-text').textContent = `${rank.min.toLocaleString()} - ${rank.max.toLocaleString()} RM`;
             document.getElementById('your-rank-rate').textContent = `${rank.rate}%`;
             
-            const rankType = getRankType(rank.name);
             if (rankType === 'R') {
                 document.getElementById('your-reward-limit').textContent = R_SERIES_UNIFIED_LIMIT.toLocaleString();
             } else {
@@ -1789,17 +1959,14 @@ To enhance your income potential, we have opened up broader development paths fo
         }
         
         function updatePromoteeDisplay(balance, rank) {
-            const displayName = rank.name === "未达标" ? "未达标" : `${rank.name} ${rank.star}`;
+            const displayName = `${rank.name} ${rank.star}`;
             document.getElementById('promotee-level-display').innerHTML = `晋升者等级：${displayName}`;
             
-            if (rank.name === "未达标") {
-                document.getElementById('promotee-level-range').textContent = `余额范围: < RM50 (最低要求)`;
-                document.getElementById('promotee-daily-rate').textContent = `每日收益率: 0% (未达标)`;
-            } else {
-                document.getElementById('promotee-level-range').textContent = `余额范围: RM${rank.min.toLocaleString()} - RM${rank.max.toLocaleString()}`;
-                document.getElementById('promotee-daily-rate').textContent = `每日收益率: ${rank.rate}%`;
-            }
+            // 显示标准范围（仅供参考）
+            document.getElementById('promotee-level-range').textContent = `标准余额范围: RM${rank.min.toLocaleString()} - RM${rank.max.toLocaleString()}`;
+            document.getElementById('promotee-daily-rate').textContent = `每日收益率: ${rank.rate}%`;
             
+            // 计算收益：余额 × 所选等级的利率（完全不受等级标准范围限制）
             const daily = balance > 0 ? (balance * rank.rate / 100).toFixed(2) : "0.00";
             const monthly = (daily * 30).toFixed(2);
             const yearly = (daily * 365).toFixed(2);
@@ -1810,8 +1977,9 @@ To enhance your income potential, we have opened up broader development paths fo
             document.getElementById('promotee-yearly-income').textContent = `RM${parseFloat(yearly).toLocaleString()}`;
             document.getElementById('promotee-two-year-income').textContent = `RM${parseFloat(twoYear).toLocaleString()}`;
             
+            // 更新右侧卡片信息
             document.getElementById('promotee-rank-name').textContent = displayName;
-            document.getElementById('promotee-rank-range-text').textContent = rank.name === "未达标" ? "< 50 RM" : `${rank.min.toLocaleString()} - ${rank.max.toLocaleString()} RM`;
+            document.getElementById('promotee-rank-range-text').textContent = `${rank.min.toLocaleString()} - ${rank.max.toLocaleString()} RM`;
             document.getElementById('promotee-rank-rate').textContent = `${rank.rate}%`;
             document.getElementById('promotee-balance-display').textContent = balance.toLocaleString();
         }
@@ -1825,19 +1993,24 @@ To enhance your income potential, we have opened up broader development paths fo
             const yourRankType = getRankType(yourRank.name);
             const promoteeRankType = getRankType(promoteeRank.name);
             
-            if (yourRank.name !== "未达标" && promoteeBalance > 0 && promoteeRank.name !== "未达标") {
+            // 邀请奖励计算逻辑
+            if (promoteeBalance > 0) {
                 if (promoteeRankType === 'R') {
+                    // 邀请R等级：按实际余额的10%
                     baseAmount = promoteeBalance;
                     reward = baseAmount * 0.10;
                     calculationMethod = "R等级邀请规则（按实际余额）";
                     formulaText = `${promoteeBalance.toLocaleString()} RM × 10%`;
                 } else {
+                    // 邀请S/RS等级
                     if (yourRankType === 'R') {
+                        // R系列统一上限
                         baseAmount = R_SERIES_UNIFIED_LIMIT;
                         reward = baseAmount * 0.10;
                         calculationMethod = "S/RS等级邀请规则（R系列统一上限）";
                         formulaText = `R系列统一上限 ${R_SERIES_UNIFIED_LIMIT.toLocaleString()} RM × 10%`;
                     } else {
+                        // 按您的等级上限
                         baseAmount = yourRank.max;
                         reward = baseAmount * 0.10;
                         calculationMethod = "S/RS等级邀请规则（按您的上限）";
@@ -1849,77 +2022,45 @@ To enhance your income potential, we have opened up broader development paths fo
             document.getElementById('reward-amount').textContent = `RM${reward.toFixed(2)}`;
             document.getElementById('reward-formula').textContent = `${calculationMethod}：${formulaText} = ${reward.toFixed(2)} RM`;
             
-            // 更新奖励详情（简化版）
+            // 更新奖励详情
             const rewardDetail = document.getElementById('reward-detail');
-            if (yourRank.name === "未达标") {
-                rewardDetail.innerHTML = `
-                    <strong style="color: #b21f1f;">您的余额未达到最低等级要求 (RM50)</strong><br>
-                    请增加储蓄钱包余额以获得邀请奖励资格。
-                `;
-            } else if (promoteeRank.name === "未达标") {
-                rewardDetail.innerHTML = `
-                    <strong style="color: #b21f1f;">晋升者余额未达到最低等级要求 (RM50)</strong><br>
-                    请确认晋升者已转入足够金额。
+            let detailHTML = `<strong style="color: #0a8c0a;">计算方式：${calculationMethod}</strong><br>`;
+            
+            if (yourRankType === 'R' && promoteeRankType !== 'R') {
+                detailHTML += `
+                    <div style="margin-top: 10px; background: #fff3e0; padding: 15px; border-radius: 8px; border-left: 4px solid #f57c00;">
+                        R系列统一上限 ${R_SERIES_UNIFIED_LIMIT.toLocaleString()} RM × 10% = <strong style="color: #e65100; font-size: 1.2rem;">${reward.toFixed(2)} RM</strong>
+                    </div>
+                    <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
+                        <i class="fas fa-info-circle"></i> 
+                        R⭐、R⭐⭐、R⭐⭐⭐统一按1,499计算，邀请S/RS等级时奖励上限均为149.90 RM
+                    </div>
                 `;
             } else {
-                let detailHTML = `<strong style="color: #0a8c0a;">计算方式：${calculationMethod}</strong><br>`;
-                
-                if (yourRankType === 'R' && promoteeRankType !== 'R') {
-                    detailHTML += `
-                        <div style="margin-top: 10px; background: #fff3e0; padding: 15px; border-radius: 8px; border-left: 4px solid #f57c00;">
-                            R系列统一上限 ${R_SERIES_UNIFIED_LIMIT.toLocaleString()} RM × 10% = <strong style="color: #e65100; font-size: 1.2rem;">${reward.toFixed(2)} RM</strong>
-                        </div>
-                        <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
-                            <i class="fas fa-info-circle"></i> 
-                            R⭐、R⭐⭐、R⭐⭐⭐统一按1,499计算，邀请S/RS等级时奖励上限均为149.90 RM
-                        </div>
-                    `;
-                } else {
-                    detailHTML += `
-                        <div style="margin-top: 10px; background: #fff3e0; padding: 15px; border-radius: 8px; border-left: 4px solid #f57c00;">
-                            ${baseAmount.toLocaleString()} RM × 10% = <strong style="color: #e65100; font-size: 1.2rem;">${reward.toFixed(2)} RM</strong>
-                        </div>
-                    `;
-                }
-                
-                rewardDetail.innerHTML = detailHTML;
+                detailHTML += `
+                    <div style="margin-top: 10px; background: #fff3e0; padding: 15px; border-radius: 8px; border-left: 4px solid #f57c00;">
+                        ${baseAmount.toLocaleString()} RM × 10% = <strong style="color: #e65100; font-size: 1.2rem;">${reward.toFixed(2)} RM</strong>
+                    </div>
+                `;
             }
             
-            // 返佣资格判断（使用固定的3%返佣率，而非日收益率）
-            const canGetRebate = yourBalance >= promoteeBalance && yourRank.name !== "未达标" && promoteeBalance > 0;
-            const rebateHighlight = document.getElementById('rebate-highlight');
+            rewardDetail.innerHTML = detailHTML;
+            
+            // 返佣资格判断（使用固定的3%返佣率）
+            const canGetRebate = yourBalance >= promoteeBalance && yourBalance > 0 && promoteeBalance > 0;
             const rebateWarning = document.getElementById('rebate-warning');
             const upgradeTip = document.getElementById('upgrade-tip');
             const summaryRebateStatus = document.getElementById('summary-rebate-status');
             
             if (canGetRebate) {
-                if (rebateHighlight) rebateHighlight.style.display = 'flex';
                 if (rebateWarning) rebateWarning.style.display = 'none';
                 if (upgradeTip) upgradeTip.style.display = 'none';
                 summaryRebateStatus.textContent = `可以享受 (${REBATE_PERCENTAGE}%)`;
                 summaryRebateStatus.style.color = '#0a8c0a';
             } else {
-                if (rebateHighlight) rebateHighlight.style.display = 'none';
                 if (rebateWarning) rebateWarning.style.display = 'flex';
                 
-                if (yourRank.name === "未达标") {
-                    if (rebateWarning) {
-                        rebateWarning.innerHTML = `
-                            <i class="fas fa-exclamation-triangle"></i>
-                            <div style="font-size: 0.9rem;">
-                                <strong>注意：</strong>您的储蓄钱包余额未达到最低等级要求，请先提升余额至 RM50 以上。
-                            </div>
-                        `;
-                    }
-                    if (upgradeTip) {
-                        upgradeTip.style.display = 'block';
-                        upgradeTip.innerHTML = `
-                            <i class="fas fa-lightbulb"></i>
-                            <strong>建议：</strong>提升您的储蓄钱包余额至 RM50 以上，即可解锁完整返佣权益！
-                        `;
-                    }
-                    summaryRebateStatus.textContent = `无法享受 (需提升余额至 RM50+)`;
-                } else if (yourBalance < promoteeBalance) {
+                if (yourBalance < promoteeBalance) {
                     if (rebateWarning) {
                         rebateWarning.innerHTML = `
                             <i class="fas fa-exclamation-triangle"></i>
@@ -1957,46 +2098,36 @@ To enhance your income potential, we have opened up broader development paths fo
         }
         
         // 生成话术内容
-        // 重要修正：晋升话术使用新员工（晋升者）的数据，邀请话术使用邀请人（您的）的数据
         function generateMessage(type, lang, yourBalance, promoteeBalance, yourRank, promoteeRank) {
-            // 判断话术类型，选择正确的数据
-            // promotion（晋升话术）-> 使用新员工（promotee）的数据
-            // invitation（邀请话术）-> 使用邀请人（your）的数据
-            // summary（总结）-> 使用双方数据
-            
             let targetBalance, targetRank, targetDaily, targetMonthly, targetYearly, targetTwoYear;
             
             if (type === 'promotion') {
-                // 晋升话术：基于新员工（晋升者）的余额和等级
                 targetBalance = promoteeBalance;
                 targetRank = promoteeRank;
             } else if (type === 'invitation') {
-                // 邀请话术：基于邀请人（您的）的余额和等级
                 targetBalance = yourBalance;
                 targetRank = yourRank;
             } else {
-                // 总结：默认使用您的数据，但会显示双方信息
                 targetBalance = yourBalance;
                 targetRank = yourRank;
             }
             
-            // 计算目标用户的收益数据
+            // 计算目标用户的收益数据（使用所选等级的利率）
             targetDaily = targetBalance > 0 && targetRank.rate > 0 ? (targetBalance * targetRank.rate / 100).toFixed(2) : "0.00";
             targetMonthly = (targetDaily * 30).toFixed(2);
             targetYearly = (targetDaily * 365).toFixed(2);
             targetTwoYear = (targetDaily * 730).toFixed(2);
             
-            // 等级显示名称
-            const yourRankDisplay = yourRank.name === "未达标" ? (lang === 'ms' ? 'Belum Mencapai Tahap' : lang === 'en' ? 'Not Qualified' : '未达标') : `${yourRank.name}${yourRank.star}`;
-            const promoteeRankDisplay = promoteeRank.name === "未达标" ? (lang === 'ms' ? 'Belum Mencapai Tahap' : lang === 'en' ? 'Not Qualified' : '未达标') : `${promoteeRank.name}${promoteeRank.star}`;
+            const yourRankDisplay = `${yourRank.name}${yourRank.star}`;
+            const promoteeRankDisplay = `${promoteeRank.name}${promoteeRank.star}`;
             const targetRankDisplay = type === 'promotion' ? promoteeRankDisplay : yourRankDisplay;
             
-            // 计算奖励（邀请奖励基于邀请人和晋升者的关系）
+            // 计算奖励
             let reward = 0;
             const yourRankType = getRankType(yourRank.name);
             const promoteeRankType = getRankType(promoteeRank.name);
             
-            if (yourRank.name !== "未达标" && promoteeBalance > 0 && promoteeRank.name !== "未达标") {
+            if (promoteeBalance > 0) {
                 if (promoteeRankType === 'R') {
                     reward = promoteeBalance * 0.10;
                 } else {
@@ -2008,10 +2139,9 @@ To enhance your income potential, we have opened up broader development paths fo
                 }
             }
             
-            const canGetRebate = yourBalance >= promoteeBalance && yourRank.name !== "未达标" && promoteeBalance > 0;
+            const canGetRebate = yourBalance >= promoteeBalance && yourBalance > 0 && promoteeBalance > 0;
             
             if (type === 'promotion') {
-                // 晋升话术 - 基于新员工（晋升者）的数据
                 if (lang === 'cn') {
                     return `🎯 恭喜！您已成功晋升为 ${targetRankDisplay} ！这意味着您已迈出稳健财富增长的第一步。
 
@@ -2044,7 +2174,6 @@ Untuk meningkatkan potensi pendapatan anda, kami telah membuka laluan pembanguna
 To enhance your income potential, we have opened up broader development paths for you: You now have more privileges related to partners (invitation rights) and (agricultural investment) to create more income. Moving forward together, achieving synergistic asset growth.`;
                 }
             } else if (type === 'invitation') {
-                // 邀请话术 - 基于邀请人（您的）的数据，但提及被邀请人
                 if (lang === 'cn') {
                     let msg = `🎉 恭喜！您成功邀请了一位 ${promoteeRankDisplay} 级合作伙伴加入您的团队！
 
@@ -2079,16 +2208,13 @@ To enhance your income potential, we have opened up broader development paths fo
 一个人的优秀是火花，一群人的奔赴是火焰。感谢您的主动拓展与真诚邀请，携手并进，共创资产协同增长！🚀`;
                     return msg;
                 } else if (lang === 'ms') {
-                    // 新的马来语话术模板（区分有无返佣）
                     if (canGetRebate) {
-                        // 参与返佣版本
                         return `Tahniah! 🎉 Anda telah berjaya menjemput rakan kongsi ${promoteeRankDisplay} untuk menyertai pasukan anda, secara rasmi memulakan perjalanan pertumbuhan baharu! Anda telah berjaya mendapatkan bonus rujukan *${reward.toFixed(2)} RM*, dan akan terus menikmati komisen kerja harian *${REBATE_PERCENTAGE}%* daripada orang bawahan, membolehkan usaha anda terus berubah menjadi tenaga untuk pertumbuhan.
 
 Kecemerlangan seseorang adalah percikan api, tetapi perjalanan kumpulan bersama adalah api. Terima kasih atas pengembangan proaktif dan jemputan ikhlas anda; pencapaian ini adalah bukti terbaik visi dan tindakan anda. Kami berharap anda dan pasukan anda akan terus bekerjasama untuk mencipta lebih banyak nilai dan kejutan pada masa hadapan!
 
 Teruskan maju ke hadapan! Pasukan ini lebih kuat kerana anda, dan masa depan lebih cerah kerana anda! 🚀`;
                     } else {
-                        // 不参与返佣版本
                         return `Tahniah! 🎉 Anda telah berjaya menjemput rakan kongsi ${promoteeRankDisplay} untuk menyertai pasukan anda, secara rasmi memulakan perjalanan pertumbuhan baharu! Anda telah berjaya mendapatkan bonus rujukan *${reward.toFixed(2)} RM*.
 
 Kecemerlangan seseorang adalah percikan api, tetapi perjalanan kumpulan bersama adalah api. Terima kasih atas pengembangan proaktif dan jemputan ikhlas anda; pencapaian ini adalah bukti terbaik visi dan tindakan anda. Kami berharap anda dan pasukan anda akan terus bekerjasama untuk mencipta lebih banyak nilai dan kejutan pada masa hadapan!
@@ -2130,7 +2256,6 @@ Individual excellence is a spark, but a group's journey is a flame. Thank you fo
                     return msg;
                 }
             } else {
-                // 收益总结话术 - 显示双方数据
                 if (lang === 'cn') {
                     return `📊 RS平台收益总结报告
 
@@ -2190,10 +2315,9 @@ Individual excellence is a spark, but a group's journey is a flame. Thank you fo
         function updateAllMessages() {
             const yourBalance = parseFloat(yourBalanceInput.value) || 0;
             const promoteeBalance = parseFloat(promoteeBalanceInput.value) || 0;
-            const yourRank = determineRank(yourBalance);
-            const promoteeRank = determineRank(promoteeBalance);
+            const yourRank = getRank('your');
+            const promoteeRank = getRank('promotee');
             
-            // 更新标题
             const titles = {
                 promotion: { cn: '晋升恭喜话术', ms: 'Ucapan Tahniah Kenaikan Pangkat', en: 'Promotion Congratulations' },
                 invitation: { cn: '邀请成功话术', ms: 'Ucapan Jemputan Berjaya', en: 'Invitation Success Message' },
@@ -2204,7 +2328,6 @@ Individual excellence is a spark, but a group's journey is a flame. Thank you fo
             document.getElementById('preview-title-ms').textContent = titles[currentMessageType].ms;
             document.getElementById('preview-title-en').textContent = titles[currentMessageType].en;
             
-            // 生成并更新内容
             document.getElementById('congrats-message-cn').textContent = generateMessage(currentMessageType, 'cn', yourBalance, promoteeBalance, yourRank, promoteeRank);
             document.getElementById('congrats-message-ms').textContent = generateMessage(currentMessageType, 'ms', yourBalance, promoteeBalance, yourRank, promoteeRank);
             document.getElementById('congrats-message-en').textContent = generateMessage(currentMessageType, 'en', yourBalance, promoteeBalance, yourRank, promoteeRank);
@@ -2223,8 +2346,8 @@ Individual excellence is a spark, but a group's journey is a flame. Thank you fo
         function copySpecificMessage(type, lang) {
             const yourBalance = parseFloat(yourBalanceInput.value) || 0;
             const promoteeBalance = parseFloat(promoteeBalanceInput.value) || 0;
-            const yourRank = determineRank(yourBalance);
-            const promoteeRank = determineRank(promoteeBalance);
+            const yourRank = getRank('your');
+            const promoteeRank = getRank('promotee');
             
             const message = generateMessage(type, lang, yourBalance, promoteeBalance, yourRank, promoteeRank);
             navigator.clipboard.writeText(message).then(() => {
@@ -2237,8 +2360,8 @@ Individual excellence is a spark, but a group's journey is a flame. Thank you fo
         function copyAllMessages() {
             const yourBalance = parseFloat(yourBalanceInput.value) || 0;
             const promoteeBalance = parseFloat(promoteeBalanceInput.value) || 0;
-            const yourRank = determineRank(yourBalance);
-            const promoteeRank = determineRank(promoteeBalance);
+            const yourRank = getRank('your');
+            const promoteeRank = getRank('promotee');
             
             let allContent = `=== RS平台话术汇总 ===\n\n`;
             
@@ -2293,6 +2416,13 @@ Individual excellence is a spark, but a group's journey is a flame. Thank you fo
         }
         
         function resetAll() {
+            // 重置等级选择
+            yourRankSelect.value = "1";
+            promoteeRankSelect.value = "3";
+            yourRankIndex = 1;
+            promoteeRankIndex = 3;
+            
+            // 重置金额
             yourBalanceInput.value = 1000;
             promoteeBalanceInput.value = 2430;
             
