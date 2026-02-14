@@ -2143,7 +2143,7 @@ To enhance your income potential, we have opened up broader development paths fo
             
             if (type === 'promotion') {
                 if (lang === 'cn') {
-                    return `🎯 恭喜！您已成功晋升为 ${targetRankDisplay} ！这意味着您已迈出稳健财富增长的第一步。
+                    return `🎯 恭喜！您已成功晋升为 *${targetRankDisplay}* ！这意味着您已迈出稳健财富增长的第一步。
 
 ✅ 当前资产概况
 
@@ -2153,7 +2153,7 @@ To enhance your income potential, we have opened up broader development paths fo
 
 为了提升您的收入潜力，我们为您开辟了更广阔的发展道路：您现在拥有更多与合作伙伴（邀请权限）和（农耕投资）相关的特权，从而创造更多收益。携手并进，共创资产协同增长。`;
                 } else if (lang === 'ms') {
-                    return `🎯 Tahniah! Anda telah berjaya dinaikkan pangkat ke ${targetRankDisplay}! Ini bermakna anda telah mengambil langkah pertama dalam pertumbuhan kekayaan yang stabil.
+                    return `🎯 Tahniah! Anda telah berjaya dinaikkan pangkat ke *${targetRankDisplay}*! Ini bermakna anda telah mengambil langkah pertama dalam pertumbuhan kekayaan yang stabil.
 
 ✅ Gambaran Aset Semasa
 
@@ -2163,7 +2163,7 @@ To enhance your income potential, we have opened up broader development paths fo
 
 Untuk meningkatkan potensi pendapatan anda, kami telah membuka laluan pembangunan yang lebih luas untuk anda: Anda kini mempunyai lebih banyak keistimewaan berkaitan dengan rakan kongsi (keizinan jemputan) dan (pelaburan pertanian), untuk menjana lebih banyak pendapatan. Bersama-sama maju, mencapai pertumbuhan aset yang sinergi.`;
                 } else {
-                    return `🎯 Congratulations! You have been successfully promoted to ${targetRankDisplay}! This means you have taken the first step towards stable wealth growth.
+                    return `🎯 Congratulations! You have been successfully promoted to *${targetRankDisplay}*! This means you have taken the first step towards stable wealth growth.
 
 ✅ Current Asset Overview
 
@@ -2175,7 +2175,7 @@ To enhance your income potential, we have opened up broader development paths fo
                 }
             } else if (type === 'invitation') {
                 if (lang === 'cn') {
-                    let msg = `🎉 恭喜！您成功邀请了一位 ${promoteeRankDisplay} 级合作伙伴加入您的团队！
+                    let msg = `🎉 恭喜！您成功邀请了一位 *${promoteeRankDisplay}* 级合作伙伴加入您的团队！
 
 💰 推荐奖励：*RM${reward.toFixed(2)}*`;
                     
@@ -2209,20 +2209,20 @@ To enhance your income potential, we have opened up broader development paths fo
                     return msg;
                 } else if (lang === 'ms') {
                     if (canGetRebate) {
-                        return `Tahniah! 🎉 Anda telah berjaya menjemput rakan kongsi ${promoteeRankDisplay} untuk menyertai pasukan anda, secara rasmi memulakan perjalanan pertumbuhan baharu! Anda telah berjaya mendapatkan bonus rujukan *${reward.toFixed(2)} RM*, dan akan terus menikmati komisen kerja harian *${REBATE_PERCENTAGE}%* daripada orang bawahan, membolehkan usaha anda terus berubah menjadi tenaga untuk pertumbuhan.
+                        return `Tahniah! 🎉 Anda telah berjaya menjemput rakan kongsi *${promoteeRankDisplay}* untuk menyertai pasukan anda, secara rasmi memulakan perjalanan pertumbuhan baharu! Anda telah berjaya mendapatkan bonus rujukan *${reward.toFixed(2)} RM*, dan akan terus menikmati komisen kerja harian *${REBATE_PERCENTAGE}%* daripada orang bawahan, membolehkan usaha anda terus berubah menjadi tenaga untuk pertumbuhan.
 
 Kecemerlangan seseorang adalah percikan api, tetapi perjalanan kumpulan bersama adalah api. Terima kasih atas pengembangan proaktif dan jemputan ikhlas anda; pencapaian ini adalah bukti terbaik visi dan tindakan anda. Kami berharap anda dan pasukan anda akan terus bekerjasama untuk mencipta lebih banyak nilai dan kejutan pada masa hadapan!
 
 Teruskan maju ke hadapan! Pasukan ini lebih kuat kerana anda, dan masa depan lebih cerah kerana anda! 🚀`;
                     } else {
-                        return `Tahniah! 🎉 Anda telah berjaya menjemput rakan kongsi ${promoteeRankDisplay} untuk menyertai pasukan anda, secara rasmi memulakan perjalanan pertumbuhan baharu! Anda telah berjaya mendapatkan bonus rujukan *${reward.toFixed(2)} RM*.
+                        return `Tahniah! 🎉 Anda telah berjaya menjemput rakan kongsi *${promoteeRankDisplay}* untuk menyertai pasukan anda, secara rasmi memulakan perjalanan pertumbuhan baharu! Anda telah berjaya mendapatkan bonus rujukan *${reward.toFixed(2)} RM*.
 
 Kecemerlangan seseorang adalah percikan api, tetapi perjalanan kumpulan bersama adalah api. Terima kasih atas pengembangan proaktif dan jemputan ikhlas anda; pencapaian ini adalah bukti terbaik visi dan tindakan anda. Kami berharap anda dan pasukan anda akan terus bekerjasama untuk mencipta lebih banyak nilai dan kejutan pada masa hadapan!
 
 Teruskan maju ke hadapan! Pasukan ini lebih kuat kerana anda, dan masa depan lebih cerah kerana anda! 🚀`;
                     }
                 } else {
-                    let msg = `🎉 Congratulations! You have successfully invited a ${promoteeRankDisplay} level partner to join your team!
+                    let msg = `🎉 Congratulations! You have successfully invited a *${promoteeRankDisplay}* level partner to join your team!
 
 💰 Referral Reward: *RM${reward.toFixed(2)}*`;
                     
