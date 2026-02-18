@@ -304,7 +304,7 @@
             padding: 16px 16px 16px 70px;
             border: 2px solid #ddd;
             border-radius: 10px;
-            font-size: 1.3rem;
+            font-size:  1.3rem;
             font-weight: 600;
             color: #1a2a6c;
             transition: all 0.3s;
@@ -1234,6 +1234,60 @@
             font-weight: bold;
             font-size: 1.2rem;
         }
+
+        /* 计算步骤展示 */
+        .calculation-steps {
+            background: #f8f9fa;
+            border-radius: 10px;
+            padding: 20px;
+            margin-top: 15px;
+            border-left: 4px solid #0a8c0a;
+        }
+
+        .calc-step {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+            font-size: 0.95rem;
+        }
+
+        .calc-step:last-child {
+            margin-bottom: 0;
+            font-weight: bold;
+            color: #0a8c0a;
+            font-size: 1.1rem;
+        }
+
+        .step-arrow {
+            color: #0a8c0a;
+            font-size: 1.2rem;
+        }
+
+        .step-highlight {
+            background: #fff3e0;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: 600;
+            color: #e65100;
+        }
+
+        .capped-notice {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            border: 2px solid #e53935;
+            border-radius: 8px;
+            padding: 12px;
+            margin-top: 10px;
+            color: #c62828;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .capped-notice i {
+            font-size: 1.3rem;
+        }
     </style>
 </head>
 <body>
@@ -1587,13 +1641,18 @@ To enhance your income potential, we have opened up broader development paths fo
             </h2>
 
             <div class="rule-box">
-                <strong><i class="fas fa-exclamation-circle"></i> 邀请奖励规则说明：</strong>
+                <strong><i class="fas fa-exclamation-circle"></i> 邀请奖励规则说明（已更新）：</strong>
                 <ul>
                     <li><strong>场景一：</strong>邀请 <strong>R等级</strong> 新合作伙伴 → 按新用户实际余额的 <strong>10%</strong> 计算</li>
-                    <li><strong>场景二：</strong>邀请 <strong>S/RS等级</strong> 新合作伙伴 → 按您的等级 <strong>最高金额上限×10%</strong> 计算</li>
+                    <li><strong>场景二：</strong>邀请 <strong>S/RS等级</strong> 新合作伙伴 → 按<strong>被邀请人实际余额 × 10%</strong> 计算，但不超过您的等级上限</li>
                     <li style="margin-top: 10px; padding: 10px; background: rgba(10,140,10,0.1); border-radius: 8px;">
                         <strong>重要提示：</strong>R系列（R⭐、R⭐⭐、R⭐⭐⭐）统一使用 <strong>1,499 RM</strong> 作为奖励上限！<br>
-                        无论您是R⭐、R⭐⭐还是R⭐⭐⭐，邀请S/RS等级的奖励上限均为 <strong>1,499 × 10% = 149.90 RM</strong>
+                        <strong>新规则示例：</strong>
+                        <div style="margin-top: 8px; padding-left: 15px;">
+                            • S⭐(上限2,499) 邀请 S⭐ 1,500 → 奖励 = 1,500 × 10% = <strong>150 RM</strong><br>
+                            • S⭐(上限2,499) 邀请 S⭐ 2,499 → 奖励 = 2,499 × 10% = <strong>249.90 RM</strong><br>
+                            • S⭐(上限2,499) 邀请 S⭐⭐ 9,999 → 奖励 = 2,499 × 10% = <strong>249.90 RM</strong>（上限封顶）
+                        </div>
                     </li>
                 </ul>
             </div>
@@ -1606,7 +1665,7 @@ To enhance your income potential, we have opened up broader development paths fo
                             <div class="card-rank-name" id="your-rank-name">R ⭐⭐</div>
                             <div class="card-rank-range" id="your-rank-range-text">300 - 599 RM</div>
                             <div style="margin-top: 5px; font-size: 0.85rem; color: #e65100; font-weight: bold; background: #fff3e0; padding: 5px 10px; border-radius: 5px; display: inline-block;">
-                                R系列统一上限: <span id="your-reward-limit">1,499</span> RM
+                                您的上限: <span id="your-reward-limit">1,499</span> RM
                             </div>
                         </div>
                         <div class="card-rank-rate">
@@ -1660,7 +1719,7 @@ To enhance your income potential, we have opened up broader development paths fo
                             <i class="fas fa-gift"></i> 推荐奖励计算逻辑
                         </div>
                         <div class="reward-value" id="reward-detail" style="font-size: 0.95rem;">
-                            <strong style="color: #0a8c0a;">计算方式：S等级邀请规则（R系列统一上限）</strong><br>
+                            <strong style="color: #0a8c0a;">计算方式：S等级邀请规则（新规则）</strong><br>
                             <div style="margin-top: 10px; background: #fff3e0; padding: 15px; border-radius: 8px; border-left: 4px solid #f57c00;">
                                 R系列统一上限 1,499 RM × 10% = <strong style="color: #e65100; font-size: 1.2rem;">149.90 RM</strong>
                             </div>
@@ -1750,42 +1809,42 @@ To enhance your income potential, we have opened up broader development paths fo
                         <td>1,500 - 2,499</td>
                         <td>2.5%</td>
                         <td>金额 × 2.5%</td>
-                        <td>2,499 × 10% = 249.90</td>
+                        <td>2,499 RM<br><span style="font-size: 0.85rem; color: #666;">按实际余额×10%，上限249.90</span></td>
                     </tr>
                     <tr class="s-group">
                         <td class="tier-name">S <span class="star-emoji">⭐⭐</span></td>
                         <td>2,500 - 9,999</td>
                         <td>3.0%</td>
                         <td>金额 × 3.0%</td>
-                        <td>9,999 × 10% = 999.90</td>
+                        <td>9,999 RM<br><span style="font-size: 0.85rem; color: #666;">按实际余额×10%，上限999.90</span></td>
                     </tr>
                     <tr class="s-group">
                         <td class="tier-name">S <span class="star-emoji">⭐⭐⭐</span></td>
                         <td>10,000 - 299,999</td>
                         <td>4.0%</td>
                         <td>金额 × 4.0%</td>
-                        <td>299,999 × 10% = 29,999.90</td>
+                        <td>299,999 RM<br><span style="font-size: 0.85rem; color: #666;">按实际余额×10%，上限29,999.90</span></td>
                     </tr>
                     <tr class="rs-group" style="background: #fff3e0; font-weight: bold;">
                         <td class="tier-name">RS <span class="star-emoji">⭐</span></td>
                         <td>300,000 - 9,999,999</td>
                         <td>5.0%</td>
                         <td>金额 × 5.0%</td>
-                        <td>9,999,999 × 10% = 999,999.90</td>
+                        <td>9,999,999 RM<br><span style="font-size: 0.85rem; color: #666;">按实际余额×10%</span></td>
                     </tr>
                     <tr class="rs-group">
                         <td class="tier-name">RS <span class="star-emoji">⭐⭐</span></td>
                         <td>300,000 - 9,999,999</td>
                         <td>6.0%</td>
                         <td>金额 × 6.0%</td>
-                        <td>9,999,999 × 10% = 999,999.90</td>
+                        <td>9,999,999 RM<br><span style="font-size: 0.85rem; color: #666;">按实际余额×10%</span></td>
                     </tr>
                     <tr class="rs-group">
                         <td class="tier-name">RS <span class="star-emoji">⭐⭐⭐</span></td>
                         <td>300,000 - 9,999,999</td>
                         <td>8.0%</td>
                         <td>金额 × 8.0%</td>
-                        <td>9,999,999 × 10% = 999,999.90</td>
+                        <td>9,999,999 RM<br><span style="font-size: 0.85rem; color: #666;">按实际余额×10%</span></td>
                     </tr>
                 </tbody>
             </table>
@@ -1951,6 +2010,7 @@ To enhance your income potential, we have opened up broader development paths fo
             document.getElementById('your-rank-range-text').textContent = `${rank.min.toLocaleString()} - ${rank.max.toLocaleString()} RM`;
             document.getElementById('your-rank-rate').textContent = `${rank.rate}%`;
             
+            // 显示奖励上限
             if (rankType === 'R') {
                 document.getElementById('your-reward-limit').textContent = R_SERIES_UNIFIED_LIMIT.toLocaleString();
             } else {
@@ -1989,11 +2049,13 @@ To enhance your income potential, we have opened up broader development paths fo
             let baseAmount = 0;
             let calculationMethod = "";
             let formulaText = "";
+            let isCapped = false;
+            let capAmount = 0;
             
             const yourRankType = getRankType(yourRank.name);
             const promoteeRankType = getRankType(promoteeRank.name);
             
-            // 邀请奖励计算逻辑
+            // 邀请奖励计算逻辑（已更新）
             if (promoteeBalance > 0) {
                 if (promoteeRankType === 'R') {
                     // 邀请R等级：按实际余额的10%
@@ -2002,19 +2064,30 @@ To enhance your income potential, we have opened up broader development paths fo
                     calculationMethod = "R等级邀请规则（按实际余额）";
                     formulaText = `${promoteeBalance.toLocaleString()} RM × 10%`;
                 } else {
-                    // 邀请S/RS等级
+                    // 邀请S/RS等级：新规则
+                    // 按被邀请人实际余额 × 10%，但不超过邀请人的等级上限
+                    
+                    // 确定邀请人的上限
+                    let yourLimit;
                     if (yourRankType === 'R') {
-                        // R系列统一上限
-                        baseAmount = R_SERIES_UNIFIED_LIMIT;
-                        reward = baseAmount * 0.10;
-                        calculationMethod = "S/RS等级邀请规则（R系列统一上限）";
-                        formulaText = `R系列统一上限 ${R_SERIES_UNIFIED_LIMIT.toLocaleString()} RM × 10%`;
+                        yourLimit = R_SERIES_UNIFIED_LIMIT;
                     } else {
-                        // 按您的等级上限
-                        baseAmount = yourRank.max;
-                        reward = baseAmount * 0.10;
-                        calculationMethod = "S/RS等级邀请规则（按您的上限）";
-                        formulaText = `您的上限 ${yourRank.max.toLocaleString()} RM × 10%`;
+                        yourLimit = yourRank.max;
+                    }
+                    
+                    // 计算：取被邀请人余额和邀请人上限的较小值
+                    baseAmount = Math.min(promoteeBalance, yourLimit);
+                    reward = baseAmount * 0.10;
+                    
+                    // 检查是否触发了上限
+                    if (promoteeBalance > yourLimit) {
+                        isCapped = true;
+                        capAmount = yourLimit;
+                        calculationMethod = "S/RS等级邀请规则（已达上限）";
+                        formulaText = `${yourLimit.toLocaleString()} RM（上限）× 10%`;
+                    } else {
+                        calculationMethod = "S/RS等级邀请规则（按实际余额）";
+                        formulaText = `${promoteeBalance.toLocaleString()} RM × 10%`;
                     }
                 }
             }
@@ -2026,20 +2099,77 @@ To enhance your income potential, we have opened up broader development paths fo
             const rewardDetail = document.getElementById('reward-detail');
             let detailHTML = `<strong style="color: #0a8c0a;">计算方式：${calculationMethod}</strong><br>`;
             
-            if (yourRankType === 'R' && promoteeRankType !== 'R') {
+            // 添加计算步骤展示
+            detailHTML += `<div class="calculation-steps">`;
+            
+            if (promoteeRankType === 'R') {
+                // R等级邀请
                 detailHTML += `
-                    <div style="margin-top: 10px; background: #fff3e0; padding: 15px; border-radius: 8px; border-left: 4px solid #f57c00;">
-                        R系列统一上限 ${R_SERIES_UNIFIED_LIMIT.toLocaleString()} RM × 10% = <strong style="color: #e65100; font-size: 1.2rem;">${reward.toFixed(2)} RM</strong>
+                    <div class="calc-step">
+                        <i class="fas fa-arrow-right step-arrow"></i>
+                        <span>被邀请人余额: <span class="step-highlight">${promoteeBalance.toLocaleString()} RM</span></span>
                     </div>
-                    <div style="margin-top: 10px; font-size: 0.9rem; color: #666;">
-                        <i class="fas fa-info-circle"></i> 
-                        R⭐、R⭐⭐、R⭐⭐⭐统一按1,499计算，邀请S/RS等级时奖励上限均为149.90 RM
+                    <div class="calc-step">
+                        <i class="fas fa-arrow-right step-arrow"></i>
+                        <span>计算: ${promoteeBalance.toLocaleString()} × 10%</span>
+                    </div>
+                    <div class="calc-step">
+                        <i class="fas fa-equals step-arrow"></i>
+                        <span>奖励金额: <strong style="color: #e65100; font-size: 1.2rem;">${reward.toFixed(2)} RM</strong></span>
                     </div>
                 `;
             } else {
+                // S/RS等级邀请 - 新规则
+                let yourLimit = yourRankType === 'R' ? R_SERIES_UNIFIED_LIMIT : yourRank.max;
+                
                 detailHTML += `
-                    <div style="margin-top: 10px; background: #fff3e0; padding: 15px; border-radius: 8px; border-left: 4px solid #f57c00;">
-                        ${baseAmount.toLocaleString()} RM × 10% = <strong style="color: #e65100; font-size: 1.2rem;">${reward.toFixed(2)} RM</strong>
+                    <div class="calc-step">
+                        <i class="fas fa-arrow-right step-arrow"></i>
+                        <span>被邀请人余额: <span class="step-highlight">${promoteeBalance.toLocaleString()} RM</span></span>
+                    </div>
+                    <div class="calc-step">
+                        <i class="fas fa-arrow-right step-arrow"></i>
+                        <span>您的等级上限: <span class="step-highlight">${yourLimit.toLocaleString()} RM</span></span>
+                    </div>
+                `;
+                
+                if (isCapped) {
+                    detailHTML += `
+                        <div class="calc-step">
+                            <i class="fas fa-arrow-right step-arrow"></i>
+                            <span>实际计算基数: <span class="step-highlight">${baseAmount.toLocaleString()} RM</span>（已达上限）</span>
+                        </div>
+                        <div class="calc-step">
+                            <i class="fas fa-equals step-arrow"></i>
+                            <span>奖励金额: <strong style="color: #e65100; font-size: 1.2rem;">${reward.toFixed(2)} RM</strong></span>
+                        </div>
+                    </div>
+                    <div class="capped-notice">
+                        <i class="fas fa-info-circle"></i>
+                        <span>被邀请人余额(${promoteeBalance.toLocaleString()} RM)超过您的等级上限(${yourLimit.toLocaleString()} RM)，按上限计算</span>
+                    </div>
+                    `;
+                } else {
+                    detailHTML += `
+                        <div class="calc-step">
+                            <i class="fas fa-arrow-right step-arrow"></i>
+                            <span>实际计算基数: <span class="step-highlight">${baseAmount.toLocaleString()} RM</span>（未超上限，按实际计算）</span>
+                        </div>
+                        <div class="calc-step">
+                            <i class="fas fa-equals step-arrow"></i>
+                            <span>奖励金额: <strong style="color: #e65100; font-size: 1.2rem;">${reward.toFixed(2)} RM</strong></span>
+                        </div>
+                    </div>
+                    `;
+                }
+            }
+            
+            // 添加规则说明
+            if (promoteeRankType !== 'R') {
+                detailHTML += `
+                    <div style="margin-top: 10px; font-size: 0.9rem; color: #666; background: #e3f2fd; padding: 10px; border-radius: 8px; border-left: 4px solid #2196f3;">
+                        <i class="fas fa-info-circle"></i> 
+                        <strong>新规则：</strong>S/RS等级邀请按被邀请人实际余额×10%计算，但不超过您的等级上限
                     </div>
                 `;
             }
@@ -2086,10 +2216,15 @@ To enhance your income potential, we have opened up broader development paths fo
             document.getElementById('summary-promotee-daily').textContent = document.getElementById('promotee-daily-income').textContent;
             
             let rewardSummaryText = `RM${reward.toFixed(2)}`;
-            if (yourRankType === 'R' && promoteeRankType !== 'R') {
-                rewardSummaryText += `（R系列统一上限${R_SERIES_UNIFIED_LIMIT.toLocaleString()} × 10%）`;
+            if (promoteeRankType !== 'R') {
+                let yourLimit = yourRankType === 'R' ? R_SERIES_UNIFIED_LIMIT : yourRank.max;
+                if (isCapped) {
+                    rewardSummaryText += `（已达上限${yourLimit.toLocaleString()} × 10%）`;
+                } else {
+                    rewardSummaryText += `（按实际${baseAmount.toLocaleString()} × 10%）`;
+                }
             } else {
-                rewardSummaryText += `（按上限${baseAmount.toLocaleString()} × 10%）`;
+                rewardSummaryText += `（按实际${baseAmount.toLocaleString()} × 10%）`;
             }
             document.getElementById('summary-reward').textContent = rewardSummaryText;
             
@@ -2122,8 +2257,9 @@ To enhance your income potential, we have opened up broader development paths fo
             const promoteeRankDisplay = `${promoteeRank.name}${promoteeRank.star}`;
             const targetRankDisplay = type === 'promotion' ? promoteeRankDisplay : yourRankDisplay;
             
-            // 计算奖励
+            // 计算奖励（使用新规则）
             let reward = 0;
+            let isCapped = false;
             const yourRankType = getRankType(yourRank.name);
             const promoteeRankType = getRankType(promoteeRank.name);
             
@@ -2131,11 +2267,10 @@ To enhance your income potential, we have opened up broader development paths fo
                 if (promoteeRankType === 'R') {
                     reward = promoteeBalance * 0.10;
                 } else {
-                    if (yourRankType === 'R') {
-                        reward = R_SERIES_UNIFIED_LIMIT * 0.10;
-                    } else {
-                        reward = yourRank.max * 0.10;
-                    }
+                    let yourLimit = yourRankType === 'R' ? R_SERIES_UNIFIED_LIMIT : yourRank.max;
+                    let baseAmount = Math.min(promoteeBalance, yourLimit);
+                    reward = baseAmount * 0.10;
+                    isCapped = promoteeBalance > yourLimit;
                 }
             }
             
@@ -2179,8 +2314,8 @@ To enhance your income potential, we have opened up broader development paths fo
 
 💰 推荐奖励：*RM${reward.toFixed(2)}*`;
                     
-                    if (yourRankType === 'R' && promoteeRankType !== 'R') {
-                        msg += `（R系列统一上限奖励）`;
+                    if (promoteeRankType !== 'R' && isCapped) {
+                        msg += `（已达您的等级上限）`;
                     }
                     
                     msg += `
@@ -2226,8 +2361,8 @@ Teruskan maju ke hadapan! Pasukan ini lebih kuat kerana anda, dan masa depan leb
 
 💰 Referral Reward: *RM${reward.toFixed(2)}*`;
                     
-                    if (yourRankType === 'R' && promoteeRankType !== 'R') {
-                        msg += ` (R-tier unified limit reward)`;
+                    if (promoteeRankType !== 'R' && isCapped) {
+                        msg += ` (reached your tier limit)`;
                     }
                     
                     msg += `
